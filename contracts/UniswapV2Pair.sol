@@ -7,6 +7,7 @@ import './libraries/UQ112x112.sol';
 import './interfaces/IERC20.sol';
 import './interfaces/IUniswapV2Factory.sol';
 import './interfaces/IUniswapV2Callee.sol';
+import 'hardhat/console.sol';
 
 contract UniswapV2Pair is IUniswapV2Pair, UniswapV2ERC20 {
     using SafeMath  for uint;
@@ -93,7 +94,9 @@ contract UniswapV2Pair is IUniswapV2Pair, UniswapV2ERC20 {
         if (feeOn) {
             if (_kLast != 0) {
                 uint rootK = Math.sqrt(uint(_reserve0).mul(_reserve1));
+                console.log("rootK: %s", rootK);
                 uint rootKLast = Math.sqrt(_kLast);
+                console.log("rootKLast: %s", rootKLast);
                 if (rootK > rootKLast) {
                     uint numerator = totalSupply.mul(rootK.sub(rootKLast));
                     uint denominator = rootK.mul(5).add(rootKLast);
